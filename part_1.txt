@@ -1,0 +1,132 @@
+nouns(resources):
+	business
+	review
+	photo
+
+verbs(actions):
+	Add (business) - a user adds a business
+		Request: POST /businesses
+		Request body:
+			{
+				"name": "Cafe Yumm",
+				"address": "...",
+			}
+		Response body: -
+
+	Modify (business) - a user modifies information for an existing business
+		Request: PUT /businesses
+		Request: body:
+			{
+				"name": "Cafe Yumm",
+				"address": "...",
+			}
+		Response body: -
+
+	Remove (business) - a user removes a business listing
+		Request: DELETE /business/{businessID}
+		Request body: -
+		Response body: -
+
+	List (business) - a user lists out businesses
+		Request: GET /businesses
+		Request body: -
+		Response body:
+			{
+				"businesses": [
+					{
+						"id": 12345,
+						"name": "Cafe Yumm",
+						"address": "1500 NE Cushing Dr #130",
+						"city": "Bend",
+						...
+					},
+					{
+						"id": 23456,
+						"name": "Five Guys",
+						...
+					}
+				]
+			}
+		Good idea to paginate responses
+		
+	View (business) - a user views business information
+		Request: GET /businesses/{businessID}
+		Request body: -
+		Response body:
+			{
+				"id": 12345,
+				"name": "Cafe Yumm",
+				"address": "...",
+				...
+			}
+
+	Add (review) - a user writes a review of an existing business
+		Request: POST /reviews
+		Request body:
+			{
+				"starRating": 5,
+				"dollarRating": 4,
+				...
+			}
+		Response body: -
+
+	Modify (review) - a user modifies an existing review
+		Request: PUT /reviews
+		Request body:
+			{
+				"starRating": 5,
+				"dollarRating": 4,
+				...
+			}
+		Response body: -
+
+	Remove (review) - a user removes a review they've written
+		Request: DELETE /reviews/{reviewID}
+		Request body: -
+		Response body: -
+
+	Add (photo) - a user uploads a photo
+		Request: POST /photos
+		Request body:
+			{
+				"imageFile": "/example.jpg",
+				"caption": "My awesome startup"
+			}
+		Response body: -
+
+	Remove (photo) - a user removes a photo they've uploaded
+		Request: DELETE /photos/{photoID}
+		Request body: -
+		Response body: -
+
+	Modify (photo) - a user modifies the caption of a photo
+		Request: PUT /photos
+		Request body:
+			{
+				"imageFile": "/example.jpg",
+				"caption": "My awesome startup"
+			}
+		Response body: -
+
+	List (photo) - a user lists all of the businesses they own
+
+	List (photo) - a user list out reviews they've written
+
+	List (photo) - a user lists out photos they've uploaded
+		Request: GET /photos
+		Request body: -
+		Response body:
+			{
+				"photos": [
+					{
+						"id": 12345,
+						"imageFile": "/example.jpg",
+						"caption": "My awesome startup"
+					},
+					{
+						"id": 23456,
+						"imageFile": "/example02.jpg",
+						...
+					}
+				]
+			}
