@@ -1,0 +1,22 @@
+{
+  "name": "project_1",
+  "version": "1.0.0",
+  "description": "The goals of this assignment are to practice designing a RESTful API from an application description, to begin implementing endpoints for the API you designed, and to containerize your API using Docker.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonahbroyer/CS493_Project_1.git"
+  },
+  "author": "Jonah Broyer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonahbroyer/CS493_Project_1/issues"
+  },
+  "homepage": "https://github.com/jonahbroyer/CS493_Project_1#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
