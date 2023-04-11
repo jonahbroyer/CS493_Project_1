@@ -120,6 +120,16 @@ app.put('/businesses/:businessID', (req, res) => {
         next();
     }
 });
+
+app.delete('/businesses/:businessID', (req, res, next) => {
+    var businessID = parseInt(req.params.businessID);
+    if (businesses[businessID]) {
+        businesses[businessID] = null;
+        res.status(204).end();
+    } else {
+        next();
+    }
+});
   
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
