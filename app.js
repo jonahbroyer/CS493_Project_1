@@ -100,6 +100,26 @@ app.get('/businesses/:businessID', (req, res) => {
         next();
     }
 });
+
+app.put('/businesses/:businessID', (req, res) => {
+    var businessID = parseInt(req.params.businessID);
+    if (businesses[businessID]) {
+        if (req.body && req.body.name) {
+            businesses[businessID] = req.body;
+            res.status(200).json({
+                links: {
+                    business: '/businesses/' + businessID
+                }
+        });
+        } else {
+            res.status(400).json({
+                err: "Request needs a JSON body with a name field"
+            });
+        }
+    } else {
+        next();
+    }
+});
   
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
