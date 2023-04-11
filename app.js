@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express')
 const app = express()
 const port = 3000
@@ -69,7 +70,27 @@ app.get('/businesses', (req, res) => {
         businesses: pageBusinesses,
         links: links
     });
-  })
+  });
+
+  app.use(express.json());
+
+  app.post('/businesses', (req, res) => {
+    if (req.body && req.body.name) {
+        businesses.push(req.body);
+    } else {
+        res.status(400).json({
+            err: "Request needs a JSON body with a name field"
+        });
+    }
+
+    var id = businesses.length - 1;
+    res.status(201).json({
+        id: id,
+        links: {
+            business: '/businesses/' + id
+        }
+    });
+});
   
   app.listen(port, () => {
     console.log(`App listening on port ${port}`)
