@@ -40,9 +40,35 @@ const businesses = [
         website: "http://www.google.com/",
         email: "fakegmail@gmail.com"
     },
-]
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+];
+
+app.get('/businesses', (req, res) => {
+    var page = parseInt(req.query.page) || 1;
+    var numPerPage = 10;
+    var lastPage = Math.ceil(businesses.length / numPerPage);
+    page = page < 1 ? 1 : page;
+    page = page > lastPage ? lastPage : page;
+    var start = (page - 1) * numPerPage;
+    var end = start + numPerPage;
+    var pageBusinesses = businesses.slice(start, end);
+    var links = {};
+    if (page < lastPage) {
+        links.nextPage = '/businesses?page=' + (page + 1);
+        links.lastPage = '/businesses?page=' + lastPage;
+    }
+    if (page > 1) {
+        links.prevPage = '/businesses?page=' + (page - 1);
+        links.firstPage = '/businesses?page=1';
+    }  
+    
+    res.status(200).json({
+        pageNumber: page,
+        totalPages: lastPage,
+        pageSize: numPerPage,
+        totalCount: businesses.length,
+        businesses: pageBusinesses,
+        links: links
+    });
   })
   
   app.listen(port, () => {
