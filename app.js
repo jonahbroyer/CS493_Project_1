@@ -91,6 +91,24 @@ app.get('/businesses', (req, res) => {
         }
     });
 });
+
+app.get('/businesses:businessID', (req, res) => {
+    var businessID = parseInt(req.params.businessID);
+    if (businesses[businessID]) {
+        res.status(200).json(businesses[businessID]);
+    } else {
+        next();
+    }
+    
+    res.status(200).json({
+        pageNumber: page,
+        totalPages: lastPage,
+        pageSize: numPerPage,
+        totalCount: businesses.length,
+        businesses: pageBusinesses,
+        links: links
+    });
+  });
   
   app.listen(port, () => {
     console.log(`App listening on port ${port}`)
