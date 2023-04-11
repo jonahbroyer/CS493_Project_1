@@ -14,7 +14,7 @@ verbs(actions):
 		Response body: -
 
 	Modify (business) - a user modifies information for an existing business
-		Request: PUT /businesses
+		Request: PUT /businesses/{businessID}
 		Request body:
 			{
 				"name": "Cafe Yumm",

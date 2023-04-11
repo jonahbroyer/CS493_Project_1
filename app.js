@@ -70,11 +70,11 @@ app.get('/businesses', (req, res) => {
         businesses: pageBusinesses,
         links: links
     });
-  });
+});
 
-  app.use(express.json());
+app.use(express.json());
 
-  app.post('/businesses', (req, res) => {
+app.post('/businesses', (req, res) => {
     if (req.body && req.body.name) {
         businesses.push(req.body);
     } else {
@@ -92,24 +92,15 @@ app.get('/businesses', (req, res) => {
     });
 });
 
-app.get('/businesses:businessID', (req, res) => {
+app.get('/businesses/:businessID', (req, res) => {
     var businessID = parseInt(req.params.businessID);
     if (businesses[businessID]) {
         res.status(200).json(businesses[businessID]);
     } else {
         next();
     }
-    
-    res.status(200).json({
-        pageNumber: page,
-        totalPages: lastPage,
-        pageSize: numPerPage,
-        totalCount: businesses.length,
-        businesses: pageBusinesses,
-        links: links
-    });
-  });
+});
   
-  app.listen(port, () => {
+app.listen(port, () => {
     console.log(`App listening on port ${port}`)
-  })
+})
