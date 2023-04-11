@@ -15,7 +15,7 @@ verbs(actions):
 
 	Modify (business) - a user modifies information for an existing business
 		Request: PUT /businesses
-		Request: body:
+		Request body:
 			{
 				"name": "Cafe Yumm",
 				"address": "...",
@@ -109,8 +109,44 @@ verbs(actions):
 		Response body: -
 
 	List (photo) - a user lists all of the businesses they own
+		Request: GET /photos/{photoID}/businesses
+		Request body: -
+		Response body:
+			{
+				"businesses": [
+					{
+						"id": 12345,
+						"name": "Cafe Yumm",
+						"address": "1500 NE Cushing Dr #130",
+						"city": "Bend",
+						...
+					},
+					{
+						"id": 23456,
+						"name": "Five Guys",
+						...
+					}
+				]
+			}
 
 	List (photo) - a user list out reviews they've written
+		Request: GET /photos/{photoID}/reviews
+		Request body: -
+		Response body:
+			{
+				"reviews": [
+					{
+						"id": 12345,
+						"starRating": 5,
+						"dollarRating": 4
+					},
+					{
+						"id": 23456,
+						"starRating": 5,
+						"dollarRating": 4,
+					}
+				]
+			}
 
 	List (photo) - a user lists out photos they've uploaded
 		Request: GET /photos
