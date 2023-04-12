@@ -1,6 +1,9 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const port = 3000;
+
+const jsonParser = bodyParser.json();
 
 // API endpoints for businesses
 const businesses = [
@@ -73,9 +76,10 @@ app.get('/businesses', (req, res) => {
 
 app.use(express.json());
 
-app.post('/businesses', (req, res) => {
+app.post('/businesses', jsonParser, (req, res) => {
     if (req.body && req.body.name) {
         businesses.push(req.body);
+        res.json({"status": "ok"});
     } else {
         res.status(400).json({
             err: "Request needs a JSON body with a name field"
