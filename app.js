@@ -1,4 +1,3 @@
-const e = require('express');
 const express = require('express')
 const app = express()
 const port = 3000
@@ -92,7 +91,7 @@ app.post('/businesses', (req, res) => {
     });
 });
 
-app.get('/businesses/:businessID', (req, res) => {
+app.get('/businesses/:businessID', (req, res, next) => {
     var businessID = parseInt(req.params.businessID);
     if (businesses[businessID]) {
         res.status(200).json(businesses[businessID]);
@@ -132,5 +131,5 @@ app.delete('/businesses/:businessID', (req, res, next) => {
 });
   
 app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
-})
+    console.log(`App listening on port ${port}`);
+});
