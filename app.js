@@ -187,3 +187,18 @@ app.delete('/reviews/:reviewID', (req, res, next) => {
     }
 });
 
+// API endpoints for photos
+const photos = [
+    {
+        imageFile: "/example.jpg",
+        caption: "This Yumm bowl hit the spot!"
+    },
+    {
+        imageFile: "/potato.jpg",
+        caption: "Why does this look funny?"
+    },
+    {
+        imageFile: "/soup.jpg",
+        caption: "Good Soup!"
+    },
+];
