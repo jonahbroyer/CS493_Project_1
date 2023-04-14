@@ -221,3 +221,22 @@ const photos = [
         caption: "Good Soup!"
     },
 ];
+
+app.post('/photos', jsonParser, (req, res) => {
+    if (req.body && req.body.imageFile) {
+        photos.push(req.body);
+        res.json({"status": "ok"});
+    } else {
+        res.status(400).json({
+            err: "Request needs a JSON body with an image file field"
+        });
+    }
+
+    var id = photos.length - 1;
+    res.status(201).json({
+        id: id,
+        links: {
+            photo: '/photos/' + id
+        }
+    });
+});
