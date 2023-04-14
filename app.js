@@ -5,6 +5,10 @@ const port = 3000;
 
 const jsonParser = bodyParser.json();
 
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
+});
+
 // API endpoints for businesses
 const businesses = [
     {
@@ -133,7 +137,44 @@ app.delete('/businesses/:businessID', (req, res, next) => {
         next();
     }
 });
-  
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
+
+// API endpoints for reviews
+const reviews = [
+    {
+        starRating: 5,
+        dollarRating: 4,
+        review: "This is the best place eva"
+    },
+    {
+        starRating: 2,
+        dollarRating: 3,
+        review: "Not really feeling it"
+    },
+    {
+        starRating: 1,
+        dollarRating: 5,
+        review: "Why does this place exist?"
+    },
+];
+
+app.put('/reviews/:reviewID', (req, res, next) => {
+    var reviewID = parseInt(req.params.reviewID);
+    if (reviews[reviewID]) {
+        if (req.body && req.body.starRating && req.body.dollarRating) {
+            reviews[reviewID] = req.body;
+            res.status(200).json({
+                links: {
+                    review: '/reviews/' + reviewID
+                }
+        });
+        } else {
+            res.status(400).json({
+                err: "Request needs a JSON body with a star rating field and dollar rating field"
+            });
+        }
+    } else {
+        next();
+    }
 });
+  
+
