@@ -250,3 +250,23 @@ app.delete('/photos/:photoID', (req, res, next) => {
         next();
     }
 });
+
+app.put('/photos/:photoID', (req, res, next) => {
+    var photoID = parseInt(req.params.photoID);
+    if (photos[photoID]) {
+        if (req.body && req.body.imageFile) {
+            photos[photoID] = req.body;
+            res.status(200).json({
+                links: {
+                    photo: '/photos/' + photoID
+                }
+        });
+        } else {
+            res.status(400).json({
+                err: "Request needs a JSON body with an image file field"
+            });
+        }
+    } else {
+        next();
+    }
+});
