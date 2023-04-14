@@ -304,3 +304,37 @@ app.get('/photos/:photoID/businesses', (req, res, next) => {
         next();
     }
 });
+
+app.get('/photos/:photoID/reviews', (req, res, next) => {
+    var photoID = parseInt(req.params.photoID);
+    var page = parseInt(req.query.page) || 1;
+    var numPerPage = 10;
+    var lastPage = Math.ceil(reviews.length / numPerPage);
+    page = page < 1 ? 1 : page;
+    page = page > lastPage ? lastPage : page;
+    var start = (page - 1) * numPerPage;
+    var end = start + numPerPage;
+    var pagereviews = reviews.slice(start, end);
+    var links = {};
+
+    if (page < lastPage) {
+        links.nextPage = '/photos/:photoID/reviews?page=' + (page + 1);
+        links.lastPage = '/photos/:photoID/reviews?page=' + lastPage;
+    }
+    if (page > 1) {
+        links.prevPage = '/photos/:photoID/reviews?page=' + (page - 1);
+        links.firstPage = '/photos/:photoID/reviews?page=1';
+    }  
+    
+    if (photos[photoID]) {
+        res.status(200).json({
+        pageNumber: page,
+        totalPages: lastPage,
+        pageSize: numPerPage,
+        totalCount: reviews.length,
+        reviews: pagereviews[photoID],
+        links: links});
+    } else {
+        next();
+    }
+});
