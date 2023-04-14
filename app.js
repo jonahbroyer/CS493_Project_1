@@ -240,3 +240,13 @@ app.post('/photos', jsonParser, (req, res) => {
         }
     });
 });
+
+app.delete('/photos/:photoID', (req, res, next) => {
+    var photoID = parseInt(req.params.photoID);
+    if (photos[photoID]) {
+        photos[photoID] = null;
+        res.status(204).end();
+    } else {
+        next();
+    }
+});
