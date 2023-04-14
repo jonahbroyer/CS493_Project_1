@@ -157,6 +157,25 @@ const reviews = [
     },
 ];
 
+app.post('/reviews', jsonParser, (req, res) => {
+    if (req.body && req.body.starRating && req.body.dollarRating) {
+        reviews.push(req.body);
+        res.json({"status": "ok"});
+    } else {
+        res.status(400).json({
+            err: "Request needs a JSON body with a star rating field and dollar rating field"
+        });
+    }
+
+    var id = reviews.length - 1;
+    res.status(201).json({
+        id: id,
+        links: {
+            review: '/reviews/' + id
+        }
+    });
+});
+
 app.put('/reviews/:reviewID', (req, res, next) => {
     var reviewID = parseInt(req.params.reviewID);
     if (reviews[reviewID]) {
