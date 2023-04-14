@@ -177,4 +177,13 @@ app.put('/reviews/:reviewID', (req, res, next) => {
     }
 });
   
+app.delete('/reviews/:reviewID', (req, res, next) => {
+    var reviewID = parseInt(req.params.reviewID);
+    if (reviews[reviewID]) {
+        reviews[reviewID] = null;
+        res.status(204).end();
+    } else {
+        next();
+    }
+});
 
