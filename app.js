@@ -270,3 +270,37 @@ app.put('/photos/:photoID', (req, res, next) => {
         next();
     }
 });
+
+app.get('/photos/:photoID/businesses', (req, res, next) => {
+    var photoID = parseInt(req.params.photoID);
+    var page = parseInt(req.query.page) || 1;
+    var numPerPage = 10;
+    var lastPage = Math.ceil(businesses.length / numPerPage);
+    page = page < 1 ? 1 : page;
+    page = page > lastPage ? lastPage : page;
+    var start = (page - 1) * numPerPage;
+    var end = start + numPerPage;
+    var pageBusinesses = businesses.slice(start, end);
+    var links = {};
+
+    if (page < lastPage) {
+        links.nextPage = '/photos/:photoID/businesses?page=' + (page + 1);
+        links.lastPage = '/photos/:photoID/businesses?page=' + lastPage;
+    }
+    if (page > 1) {
+        links.prevPage = '/photos/:photoID/businesses?page=' + (page - 1);
+        links.firstPage = '/photos/:photoID/businesses?page=1';
+    }  
+    
+    if (photos[photoID]) {
+        res.status(200).json({
+        pageNumber: page,
+        totalPages: lastPage,
+        pageSize: numPerPage,
+        totalCount: businesses.length,
+        businesses: pageBusinesses[photoID],
+        links: links});
+    } else {
+        next();
+    }
+});
