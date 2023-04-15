@@ -1,0 +1,48 @@
+List out all businesses:                    
+curl -v http://localhost:8000/businesses
+
+List out a specific businesses:                    
+curl -v http://localhost:8000/businesses/1
+
+Add a business:
+curl -v -X POST -H 'Content-Type: application/json' -d 
+'{"name": "test", "address": "123 Dr", "city": "Bend", "state": "OR", "zip": "97701", "phone": "555-555-5555", "category": "Restaurant", "subcategory": "Pizza", "website": "http://hello.com", "email": "hello@test.com"}'
+http://localhost:3000/businesses
+
+Update a business:
+curl -v -X PUT -H 'Content-Type: application/json' -d 
+'{"name": "testing", "address": "123 St", "city": "Sunriver", "state": "CA", "zip": "57705", "phone": "555-555-5556", "category": "Shop", "subcategory": "Clothes", "website": "http://hello.org", "email": "helloworld@test.com"}'
+http://localhost:3000/businesses/3
+
+Delete a business:
+curl -v -X DELETE http://localhost:3000/businesses/3
+
+
+
+Add a review:
+curl -v -X POST -H 'Content-Type: application/json' -d 
+'{"starRating": "2", "dollarRaing": "1"}'
+http://localhost:3000/reviews
+
+Update a review:
+curl -v -X PUT -H 'Content-Type: application/json' -d 
+'{"starRating": "1", "dollarRaing": "1", "review": "Do not wish to return"}'
+http://localhost:3000/reviews/2
+
+Delete a review:
+curl -v -X DELETE http://localhost:3000/reviews/2
+
+
+
+Add a photo:
+curl -v -X POST -H 'Content-Type: application/json' -d 
+'{"imageFile": "/test.jpg", "caption": "I love this product!"}'
+http://localhost:3000/photos
+
+Update a photo:
+curl -v -X PUT -H 'Content-Type: application/json' -d 
+'{"imageFile": "/test2.jpg", "caption": "It's broken"}'
+http://localhost:3000/reviews/4
+
+Delete a photo:
+curl -v -X DELETE http://localhost:3000/photos/4
