@@ -83,20 +83,18 @@ app.use(express.json());
 app.post('/businesses', jsonParser, (req, res) => {
     if (req.body && req.body.name) {
         businesses.push(req.body);
-        res.json({"status": "ok"});
+        var id = businesses.length - 1;
+        res.status(201).json({
+            id: id,
+            links: {
+                business: '/businesses/' + id
+            }
+    });
     } else {
         res.status(400).json({
             err: "Request needs a JSON body with a name field"
         });
     }
-
-    var id = businesses.length - 1;
-    res.status(201).json({
-        id: id,
-        links: {
-            business: '/businesses/' + id
-        }
-    });
 });
 
 app.get('/businesses/:businessID', (req, res, next) => {
